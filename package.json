@@ -1,0 +1,22 @@
+{
+    "name": "esp-best",
+    "description": "ESP Best Practices Angular Skeleton",
+    "version": "0.8.0",
+    "dirs": {
+        "base": ".",
+    },
+    "dependencies": {
+        "esp-angular-mvc": "*",
+        "bootstrap": ">=3.0.0",
+        "angular-bootstrap": ">=1.2.0",
+        "html5shiv": "*",
+        "font-awesome": "*",
+        "more": "*",
+        "respond": "*"
+    },
+    "esp": {
+        "scripts": {
+            "esp-best": ["*"],
+        },
+    },
+}
