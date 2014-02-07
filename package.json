@@ -13,7 +13,6 @@
         "respond": "*"
     },
     "export": [
-        "start.bit",
         "client/**", 
         "templates/**"
     ],
@@ -22,7 +21,7 @@
         "mode": "debug",
         "modes": {
             "debug": {
-                "flat": false,
+                "combined": false,
                 "showErrors": true,
                 "keepSource": true,
                 "update": true,
@@ -35,7 +34,7 @@
                 }
             },
             "release": {
-                "flat": true,
+                "combined": true,
                 "cache": 86400,
                 "compressed": true,
                 "showErrors": false,
@@ -50,6 +49,15 @@
                 }
             }
         },
-        "loginRequired": ""
+        "loginRequired": "",
+        "server": {
+            "generate": {
+                "appweb": "esp-best/appweb.conf",
+                "files": [
+                    "esp-best/start.bit",
+                    "esp-best/client/**"
+                ]
+            }
+        }
     }
 }

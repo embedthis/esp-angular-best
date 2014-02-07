@@ -1,5 +1,5 @@
 /*
-    start.bit - Bit build file
+    start.bit - Bit build file (esp-best)
  */
 
 Bit.load({
@@ -20,36 +20,29 @@ Bit.load({
             flat: true,
             compress: true,
         },
-        c: {
-            flat: true,
-        },
     },
     targets: {
         comp: {
-            build: "
-                if (bit.settings.c.flat) {
-                    run('esp -flat -r -q compile')
-                } else {
-                    run('esp -r -q compile')
-                }
-            ",
+            build: `
+                run('esp -r -q compile')
+            `,
         },
         cleanCache: {
             type: 'clean',
-            action: "rm('cache/*')",
+            action: `rm('cache/*')`,
         },
         cleanMin: {
             type: 'clean',
-            action: "
+            action: `
                 rm('**/*.min.*')
                 rm('client/app/all.html.*')
-            "
+            `
         },
         'all.min.css': {
             enable: 'bit.settings.css.flat',
             path: 'client/css/all-${settings.version}.min.css',
             files: [ 'client/css/*.less' ],
-            build: "
+            build: `
                 let switches = bit.settings.css.minify ? '-compress' : ''
                 let switches = ''
                 trace('Parse', '*.less')
@@ -64,29 +57,29 @@ Bit.load({
                     result += f.readString()
                 }
                 TARGET.path.write(result)
-            ",
+            `,
         },
         'all.min.css.gz': {
             enable: 'bit.settings.css.compress',
             path: 'client/css/all-${settings.version}.min.css.gz',
             files: [ 'client/css/all-${settings.version}.min.css' ],
             depends: ['all.min.css']
-            build: "
+            build: `
                 trace('Compress', TARGET.path.relative)
                 TARGET.path.remove()
                 run('gzip --keep client/css/all-${settings.version}.min.css')
-            ",
+            `,
         },
         'min.html': {
             enable: 'bit.settings.html.minify',
             path: 'client/app/all.html.js',
             files: [ '**.html' ],
-            exclude: /client\/lib\/all.min.html/,
-            build: "
+            exclude: /client\/paks\/all.min.html/,
+            build: `
                 let list = []
                 trace('Minify', '*.min.html')
                 if (!Cmd.locate('htmlmin')) {
-                    trace('Warning', 'Cannot locate \"htmlmin\" to minify.')
+                    trace('Warning', 'Cannot locate "htmlmin" to minify.')
                 }
                 for each (f in Path('client').files('**.html', {exclude: /\\.min.html/})) {
                     let minified = f.replaceExt('min.html')
@@ -101,38 +94,39 @@ Bit.load({
                         run('gzip --keep ' + minified)
                     }
                 }
-            ",
+            `,
         },
         'html.js': {
             enable: 'bit.settings.html.flat',
             path: 'client/app/all.html.js',
             files: [ 'client/app/all.html.js' ],
             depends: ['min.html']
-            build: "
+            build: `
                 let list = Path('client').files('**.min.html')
                 let all = Path('client/app/all.html.js')
                 trace('Convert', all)
-                all.append('angular.module(\"app\").run(function(Esp, $templateCache) {')
+                all.append('angular.module("app").run(function(Esp, $templateCache) {')
                 for each (let f:Path in list) {
                     let file = f.relativeTo('client').replace('.min.html', '.html')
                     let data = f.readLines()
                     for (let [key,value] in data) {
-                        data[key] = value.replace(/\"/g, '\\\\\"')
+                        data[key] = value.replace(/"/g, '\\\\"')
                     }
                     data = data.join('\\\\\n')
-                    all.append('\n    $templateCache.put(Esp.url(\"/' + file + '\"), \"' + data + '\");\n')
+                    all.append('\n    $templateCache.put(Esp.url("/' + file + '"), "' + data + '");\n')
+                    f.remove()
                 }
                 all.append('});')
-            ",
+            `,
         },
         'html.js.gz': {
             enable: 'bit.settings.html.flat && bit.settings.html.compress && !bit.settings.js.flat',
             path: 'client/app/all.html.js.gz',
             files: [ 'client/app/all.html.js' ],
             depends: ['html.js']
-            build: "
+            build: `
                 run('gzip --keep client/app/all.html.js')
-            ",
+            `,
         },
         'min.js': {
             enable: 'bit.settings.js.minify',
@@ -140,10 +134,10 @@ Bit.load({
             files: [ '**.js' ],
             exclude: /client\/paks\/all.min.js|client\/paks\/spare\/|client\/paks\/html5shiv/,
             depends: ['html.js'],
-            build: "
+            build: `
                 trace('Minify', '*.js')
                 if (!Cmd.locate('uglifyjs')) {
-                    trace('Warning', 'Cannot locate \"uglify\" to minify. Will just catenate scripts.')
+                    trace('Warning', 'Cannot locate "uglify" to minify. Will just catenate scripts.')
                 }
                 if (Cmd.locate('ngmin')) {
                     for each (f in Path('client/app').files('**.js', {exclude: /\\.min.js|\\.ng.js/})) {
@@ -157,14 +151,10 @@ Bit.load({
                 }
                 let config = Path('package.json').readJSON();
                 let list = []
-                for (let [pack, scripts] in config.esp.scripts) {
-                    if (pack == 'less' && config.mode == 'release') continue
-                    for each (file in scripts) {
-                        if (file == '*') {
-                            list += Path('client/paks').join(pack).files('*.js', {exclude: /\\.min.js/})
-                        } else {
-                            list.push(Path('client/paks').join(pack, Path(file)))
-                        }
+                for each (pattern in config['client-scripts']) {
+                    if (pattern.contains('less/less.js') && config.mode == 'release') continue
+                    for each (script in Path('client').files(pattern, {exclude: /\\.min.js/})) {
+                        list.push(script)
                     }
                 }
                 for each (f in list) {
@@ -180,7 +170,7 @@ Bit.load({
                         run('gzip --keep ' + minified)
                     }
                 }
-            ",
+            `,
         },
 
         'all.js': {
@@ -189,24 +179,16 @@ Bit.load({
             files: [ '**.min.js' ],
             exclude: /client\/paks\/all.min.js|client\/paks\/spare\/|client\/paks\/html5shiv/,
             depends: ['min.js'],
-            build: "
-                trace('Catenate', 'client/all.min.js')
+            build: `
+                trace('Catenate', TARGET.path)
                 rm('client/all.min.js.gz')
                 let list = []
                 let config = Path('package.json').readJSON();
-                for (let [pack, scripts] in config.esp.scripts) {
-                    if (pack == 'less' && config.mode == 'release') continue
-                    for each (file in scripts) {
-                        if (file == '*') {
-                            list += Path('client/paks').join(pack).files('*.min.js')
-                        } else {
-                            list.push(Path('client/paks').join(pack, Path(file).replaceExt('min.js')))
-                        }
+                for each (pattern in config['client-scripts']) {
+                    if (pattern.contains('less/less.js') && config.mode == 'release') continue
+                    for each (script in Path('client').files(pattern, {exclude: /\\.min.js/})) {
+                        list.push(script.replaceExt('min.js'))
                     }
-                }
-                /* Main.min must be first */
-                if (Path('client/app/main.js').exists) {
-                    list += ['client/app/main.min.js']
                 }
                 list += Path('client').files('app/**.min.js', {exclude: /main.min.js/})
                 let all = TARGET.path
@@ -220,7 +202,7 @@ Bit.load({
                     }
                     all.append(';' + f.readString())
                 }
-            ",
+            `,
         },
 
         'all.js.gz': {
@@ -228,11 +210,11 @@ Bit.load({
             path: 'client/all-${settings.version}.min.js.gz',
             files: [ 'client/all-${settings.version}.min.js' ],
             depends: ['all.js'],
-            build: "
+            build: `
                 trace('Compress', TARGET.path.relative)
                 TARGET.path.remove()
                 run('gzip --keep ' + TARGET.path.trimExt('gz'))
-            ",
+            `,
         },
 
         run: {
