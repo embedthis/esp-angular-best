@@ -1,10 +1,9 @@
 /*
-    start.bit - Bit build file (esp-best)
+    start.me - MakeMe file (esp-best)
  */
 
-Bit.load({
+Me.load({
     settings: {
-        bit: '0.8.6',
         css: {
             minify: true,
             flat: true,
@@ -39,14 +38,14 @@ Bit.load({
             `
         },
         'all.min.css': {
-            enable: 'bit.settings.css.flat',
+            enable: 'me.settings.css.flat',
             path: 'client/css/all-${settings.version}.min.css',
             files: [ 'client/css/*.less' ],
             build: `
-                let switches = bit.settings.css.minify ? '-compress' : ''
+                let switches = me.settings.css.minify ? '-compress' : ''
                 let switches = ''
                 trace('Parse', '*.less')
-                if (bit.settings.css.minify) {
+                if (me.settings.css.minify) {
                     trace('Minify', TARGET.path.relative)
                     switches = '-compress'
                 }
@@ -60,7 +59,7 @@ Bit.load({
             `,
         },
         'all.min.css.gz': {
-            enable: 'bit.settings.css.compress',
+            enable: 'me.settings.css.compress',
             path: 'client/css/all-${settings.version}.min.css.gz',
             files: [ 'client/css/all-${settings.version}.min.css' ],
             depends: ['all.min.css']
@@ -71,7 +70,7 @@ Bit.load({
             `,
         },
         'min.html': {
-            enable: 'bit.settings.html.minify',
+            enable: 'me.settings.html.minify',
             path: 'client/app/all.html.js',
             files: [ '**.html' ],
             exclude: /client\/paks\/all.min.html/,
@@ -90,14 +89,14 @@ Bit.load({
                             f.copy(minified)
                         }
                     }
-                    if (bit.settings.html.compress && !bit.settings.html.flat) {
+                    if (me.settings.html.compress && !me.settings.html.flat) {
                         run('gzip --keep ' + minified)
                     }
                 }
             `,
         },
         'html.js': {
-            enable: 'bit.settings.html.flat',
+            enable: 'me.settings.html.flat',
             path: 'client/app/all.html.js',
             files: [ 'client/app/all.html.js' ],
             depends: ['min.html']
@@ -120,7 +119,7 @@ Bit.load({
             `,
         },
         'html.js.gz': {
-            enable: 'bit.settings.html.flat && bit.settings.html.compress && !bit.settings.js.flat',
+            enable: 'me.settings.html.flat && me.settings.html.compress && !me.settings.js.flat',
             path: 'client/app/all.html.js.gz',
             files: [ 'client/app/all.html.js' ],
             depends: ['html.js']
@@ -129,7 +128,7 @@ Bit.load({
             `,
         },
         'min.js': {
-            enable: 'bit.settings.js.minify',
+            enable: 'me.settings.js.minify',
             path: 'client/all-${settings.version}.min.js',
             files: [ '**.js' ],
             exclude: /client\/paks\/all.min.js|client\/paks\/spare\/|client\/paks\/html5shiv/,
@@ -166,7 +165,7 @@ Bit.load({
                             f.copy(f.replaceExt('min.js'))
                         }
                     }
-                    if (bit.settings.js.compress && !bit.settings.js.flat) {
+                    if (me.settings.js.compress && !me.settings.js.flat) {
                         run('gzip --keep ' + minified)
                     }
                 }
@@ -174,7 +173,7 @@ Bit.load({
         },
 
         'all.js': {
-            enable: 'bit.settings.js.flat',
+            enable: 'me.settings.js.flat',
             path: 'client/all-${settings.version}.min.js',
             files: [ '**.min.js' ],
             exclude: /client\/paks\/all.min.js|client\/paks\/spare\/|client\/paks\/html5shiv/,
@@ -197,7 +196,7 @@ Bit.load({
                         f = f.replace('.min.js', '.js')
                     }
                     strace('Append', f)
-                    if (!bit.settings.js.minify) {
+                    if (!me.settings.js.minify) {
                         f = f.replace('.min.js', '.js')
                     }
                     all.append(';' + f.readString())
@@ -206,7 +205,7 @@ Bit.load({
         },
 
         'all.js.gz': {
-            enable: 'bit.settings.js.compress',
+            enable: 'me.settings.js.compress',
             path: 'client/all-${settings.version}.min.js.gz',
             files: [ 'client/all-${settings.version}.min.js' ],
             depends: ['all.js'],
