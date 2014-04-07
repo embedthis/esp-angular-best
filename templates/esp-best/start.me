@@ -3,6 +3,24 @@
  */
 
 Me.load({
+
+    blend: [
+        "client/paks/*/*.me",
+    ],
+
+    configure: {
+        requires:  [ 'appweb' ],
+        discovers: [ ],
+    },
+
+    mixin: `
+        function gzip(path: Path) {
+            path.joinExt('gz', true).remove()
+            run('gzip ' + path)
+            path.write(run('gunzip -c ' + path + '.gz', {noshow: true}))
+        }
+    `,
+
     settings: {
         css: {
             minify: true,
@@ -65,8 +83,7 @@ Me.load({
             depends: ['all.min.css']
             build: `
                 trace('Compress', TARGET.path.relative)
-                TARGET.path.remove()
-                run('gzip --keep client/css/all-${settings.version}.min.css')
+                gzip('client/css/all-${settings.version}.min.css')
             `,
         },
         'min.html': {
@@ -90,7 +107,7 @@ Me.load({
                         }
                     }
                     if (me.settings.html.compress && !me.settings.html.flat) {
-                        run('gzip --keep ' + minified)
+                        gzip(minified)
                     }
                 }
             `,
@@ -124,7 +141,7 @@ Me.load({
             files: [ 'client/app/all.html.js' ],
             depends: ['html.js']
             build: `
-                run('gzip --keep client/app/all.html.js')
+                gzip('client/app/all.html.js')
             `,
         },
         'min.js': {
@@ -166,7 +183,7 @@ Me.load({
                         }
                     }
                     if (me.settings.js.compress && !me.settings.js.flat) {
-                        run('gzip --keep ' + minified)
+                        gzip(minified)
                     }
                 }
             `,
@@ -211,8 +228,7 @@ Me.load({
             depends: ['all.js'],
             build: `
                 trace('Compress', TARGET.path.relative)
-                TARGET.path.remove()
-                run('gzip --keep ' + TARGET.path.trimExt('gz'))
+                gzip(TARGET.path.trimExt('gz'))
             `,
         },
 
