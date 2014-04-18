@@ -75,6 +75,7 @@ Me.load({
                 }
                 TARGET.path.write(result)
             `,
+            enable: `Path('package.json').readJSON().esp.mode == "release"`
         },
         'all.min.css.gz': {
             enable: 'me.settings.css.compress',
@@ -85,6 +86,7 @@ Me.load({
                 trace('Compress', TARGET.path.relative)
                 gzip('client/css/all-${settings.version}.min.css')
             `,
+            enable: `Path('package.json').readJSON().esp.mode == "release"`
         },
         'min.html': {
             enable: 'me.settings.html.minify',
@@ -111,6 +113,7 @@ Me.load({
                     }
                 }
             `,
+            enable: `Path('package.json').readJSON().esp.mode == "release"`
         },
         'html.js': {
             enable: 'me.settings.html.flat',
@@ -134,6 +137,7 @@ Me.load({
                 }
                 all.append('});')
             `,
+            enable: `Path('package.json').readJSON().esp.mode == "release"`
         },
         'html.js.gz': {
             enable: 'me.settings.html.flat && me.settings.html.compress && !me.settings.js.flat',
@@ -143,6 +147,7 @@ Me.load({
             build: `
                 gzip('client/app/all.html.js')
             `,
+            enable: `Path('package.json').readJSON().esp.mode == "release"`
         },
         'min.js': {
             enable: 'me.settings.js.minify',
@@ -187,6 +192,7 @@ Me.load({
                     }
                 }
             `,
+            enable: `Path('package.json').readJSON().esp.mode == "release"`
         },
 
         'all.js': {
@@ -219,6 +225,7 @@ Me.load({
                     all.append(';' + f.readString())
                 }
             `,
+            enable: `Path('package.json').readJSON().esp.mode == "release"`
         },
 
         'all.js.gz': {
@@ -230,6 +237,7 @@ Me.load({
                 trace('Compress', TARGET.path.relative)
                 gzip(TARGET.path.trimExt('gz'))
             `,
+            enable: `Path('package.json').readJSON().esp.mode == "release"`
         },
 
         run: {
