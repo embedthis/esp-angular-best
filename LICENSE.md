@@ -1,13 +1,16 @@
 esp-best License
 ===
 
-This software is distributed under commercial and GPL open source licenses.
-The GPL License does not generally permit incorporating this software into
-non-open source programs. Commercial licenses for this software and support
-services are available from Embedthis Software.
+This software is distributed under the GPL open source license.
 
 * [GPL License](http://www.gnu.org/licenses/gpl-2.0.html)
+
+This software is also distributed under an MIT license when used with
+an Embedthis Commercial License for Appweb or ESP.
+
+* [MIT License](http://opensource.org/licenses/MIT)
 * [Embedthis Commercial License](http://embedthis.com/licensing/index.html)
+
 
 Trademarks and Copyrights
 ---
