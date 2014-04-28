@@ -43,17 +43,20 @@
                         "view": true
                     },
                     "?required": "",
-                }
+                },
             },
             "release": {
+                "content": {
+                    combine:  [ "c", "css", "html", "js" ],
+                    compress: [ "css", "html", "js", "txt", "xml" ],
+                    minify:   [ "css", "html", "js" ],
+                },
                 "login": {
-                    "?name": "",
-                    "?abilities": {
-                        "edit": true,
-                        "view": true
-                    },
                     "?required": "",
-                }
+                },
+                "server": {
+                    "redirect": "secure"
+                },
             }
         },
         "server": {
