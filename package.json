@@ -28,7 +28,7 @@
     "export": [
         {
             from: "*.less",
-            to: '${JSLIB}/esp-best',
+            to: '${LIB}/esp-best',
         }
     ],
     "esp": {
