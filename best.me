@@ -9,13 +9,14 @@ Me.load({
             run('gzip ' + path)
             path.write(run('gunzip -c ' + path + '.gz', {noshow: true}))
         }
-        let esp = me.package.esp
-        blend(esp, esp.modes[esp.mode])
-        esp.content ||= {}
-        let combine = esp.content.combine
-        let compress = esp.content.compress
-        let minify = esp.content.minify
-        trace('ESP Mode', esp.mode)
+        let app = me.package.app
+        blend(app, app.modes[app.mode])
+        app.esp ||= {}
+        app.esp.content ||= {}
+        let combine = app.esp.content.combine
+        let compress = app.esp.content.compress
+        let minify = app.esp.content.minify
+        trace('ESP Mode', app.mode)
     `,
 
     targets: {
