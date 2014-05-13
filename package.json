@@ -50,7 +50,7 @@
                     "auth": {
                         "login": {
                             "?name": "",
-                            "?abilities": [ "*" ],
+                            "?roles": [ "*" ],
                         },
                     },
                     content: {
