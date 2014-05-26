@@ -37,7 +37,7 @@
         },
         "http": {
             "?auth": {
-                type: "app",
+                "store": "app",
                 "?require": {
                     "?users": ["*"],
                 },
