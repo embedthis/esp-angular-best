@@ -9,6 +9,7 @@ Me.load({
             run('gzip ' + path)
             path.write(run('gunzip -c ' + path + '.gz', {noshow: true}))
         }
+        me.package = me.dir.src.join('package.json').readJSON()
         let app = me.package.app
         blend(app, app.modes[app.mode])
         app.http ||= {}
