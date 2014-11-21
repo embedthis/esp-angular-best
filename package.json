@@ -46,7 +46,7 @@
             "debug": {
                 "http": {
                     "auth": {
-                        "login": {
+                        "auto": {
                             "?name": "",
                             "?roles": [ "*" ],
                         },
@@ -59,7 +59,7 @@
             "release": {
                 "http": {
                     "auth": {
-                        "login": {
+                        "auto": {
                             "url": "",
                         },
                     },
