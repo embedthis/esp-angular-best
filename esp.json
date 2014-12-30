@@ -1,0 +1,37 @@
+{
+    "esp": {
+        "generate": {
+            "-appweb": "esp-angular-skeleton/appweb.conf",
+            "?appweb": "esp-best-skeleton/appweb.conf"
+        }
+    },
+    "http": {
+        "?auth": {
+            "store": "app"
+        }
+    },
+    "?mode": "debug",
+    "modes": {
+        "debug": {
+            "http": {
+                "auth": {
+                    "auto": {
+                        "?name": "",
+                        "?roles": [ "*" ]
+                    }
+                }
+            }
+        },
+        "release": {
+            "http": {
+                "auth": {
+                    "auto": {
+                        "url": ""
+                    }
+                },
+                "cache": true,
+                "?redirect": "https://"
+            }
+        }
+    }
+}
