@@ -34,5 +34,6 @@
     "blend": [
         "esp.json",
         "expansive.json"
-    ]
+    ],
+    "skeleton": true
 }
