@@ -1,4 +1,4 @@
-esp-best-skeleton License
+esp-best License
 ===
 
 This software is distributed under the GPL open source license.

@@ -1,12 +1,12 @@
-esp-best-skeleton
+esp-best
 ===
 
-ESP best practices skeleton. Package of esp-best-skeleton for the [Pak Package Manager](https://github.com/embedthis/pak).
+ESP best practices pak. Package of esp-best for the [Pak Package Manager](https://github.com/embedthis/pak).
 
 
 ### To install:
 
-pak install esp-best-skeleton
+pak install esp-best
 
 ### Get Pak from
 

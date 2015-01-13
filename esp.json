@@ -2,7 +2,7 @@
     "esp": {
         "generate": {
             "-appweb": "esp-angular-skeleton/appweb.conf",
-            "?appweb": "esp-best-skeleton/appweb.conf"
+            "?appweb": "esp-best/appweb.conf"
         }
     },
     "http": {
@@ -13,16 +13,25 @@
     "?mode": "debug",
     "modes": {
         "debug": {
+            "esp": {
+                "compile": "symbols",
+                "combine": false
+            },
             "http": {
                 "auth": {
                     "auto": {
                         "?name": "",
                         "?roles": [ "*" ]
                     }
-                }
+                },
+                "compress": false
             }
         },
         "release": {
+            "esp": {
+                "compile": "optimized",
+                "combine": true
+            },
             "http": {
                 "auth": {
                     "auto": {
@@ -30,6 +39,7 @@
                     }
                 },
                 "cache": true,
+                "compress": true,
                 "?redirect": "https://"
             }
         }
