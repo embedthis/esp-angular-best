@@ -14,7 +14,7 @@
     "modes": {
         "debug": {
             "esp": {
-                "compile": "symbols",
+                "optimize": false,
                 "combine": false
             },
             "http": {
@@ -29,7 +29,7 @@
         },
         "release": {
             "esp": {
-                "compile": "optimized",
+                "optimize": true,
                 "combine": true
             },
             "http": {
