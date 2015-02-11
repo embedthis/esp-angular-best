@@ -32,7 +32,7 @@
                 "from": "js/*.js", 
                 "to": "esp-best/" 
             }, {  
-                "from": "source/**", 
+                "from": "contents/**", 
                 "to": "${TOP}", 
                 "overwrite": false
             }
