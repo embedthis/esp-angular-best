@@ -5,6 +5,18 @@
     "keywords": [
         "esp"
     ],
+    "licenses": [ {
+            "type": "GPL",
+            "url": "http://www.gnu.org/licenses/gpl-2.0.html"
+        }, {
+            "type": "Commercial",
+            "url": "https://embedthis.com/licensing/"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/embedthis/esp-best.git"
+    },
     "dependencies": {
         "esp-angular-skeleton": "~5.3",
         "bootstrap": "~3",
@@ -14,28 +26,21 @@
         "more": "*",
         "respond": "*"
     },
-    "licenses": [ {
-            "type": "GPL",
-            "url": "http://www.gnu.org/licenses/gpl-2.0.html"
-        }, {
-            "type": "Commercial",
-            "url": "https://embedthis.com/licensing/"
-        }
-    ],
-    "export": [
-        {  
-            "from": "js/*.js", 
-            "to": "esp-best/" 
-        }, {  
-            "from": "source/**", 
-            "to": "${TOP}", 
-            "overwrite": false
-        }
-    ],
-    "render": {
-        "js": "js/*.js"
-    },
-    "blend": [
-        "esp.json"
-    ]
+    "pak": {
+        "export": [
+            {  
+                "from": "js/*.js", 
+                "to": "esp-best/" 
+            }, {  
+                "from": "source/**", 
+                "to": "${TOP}", 
+                "overwrite": false
+            }
+        ],
+        "manage": "esp.json",
+        "render": {
+            "js": "js/*.js"
+        },
+        "version": ">=0.10.0"
+    }
 }
