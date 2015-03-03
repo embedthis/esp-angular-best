@@ -18,13 +18,11 @@
         "url": "git://github.com/embedthis/esp-best.git"
     },
     "dependencies": {
-        "esp-angular-skeleton": "~5.3",
-        "bootstrap": "~3",
-        "angular-bootstrap": ">=0.7.0",
-        "html5shiv": "*",
-        "font-awesome": "*",
-        "more": "*",
-        "respond": "*"
+        "esp-angular-skeleton": "^5.3",
+        "html5shiv": "^3.7",
+        "font-awesome": "^4.3",
+        "more": "^0.0",
+        "respond": "^1.4"
     },
     "pak": {
         "export": [
