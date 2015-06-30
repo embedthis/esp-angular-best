@@ -1,14 +1,16 @@
 {
     "name": "esp-best",
     "description": "ESP Best Practices Angular",
-    "version": "5.4.0",
+    "version": "5.4.1",
     "keywords": [
         "esp"
     ],
-    "licenses": [ {
+    "licenses": [
+        {
             "type": "GPL",
             "url": "http://www.gnu.org/licenses/gpl-2.0.html"
-        }, {
+        },
+        {
             "type": "Commercial",
             "url": "https://embedthis.com/licensing/"
         }
@@ -18,20 +20,21 @@
         "url": "git://github.com/embedthis/esp-best.git"
     },
     "dependencies": {
-        "esp-angular-skeleton": "^5.4",
-        "html5shiv": "^3.7",
-        "font-awesome": "^4.3",
-        "more": "^0.0",
-        "respond": "^1.4"
+        "esp-angular-skeleton": "~5.4",
+        "html5shiv": "~3.7",
+        "font-awesome": "~4.3",
+        "more": "~0.0",
+        "respond": "~1.4"
     },
     "pak": {
         "export": [
-            {  
-                "from": "js/*.js", 
-                "to": "esp-best/" 
-            }, {  
-                "from": "contents/**", 
-                "to": "${TOP}", 
+            {
+                "from": "js/*.js",
+                "to": "esp-best/"
+            },
+            {
+                "from": "contents/**",
+                "to": "${TOP}",
                 "overwrite": false
             }
         ],
