@@ -1,7 +1,7 @@
 {
     "name": "esp-angular-best",
     "description": "ESP Best Practices Angular",
-    "version": "5.5.0",
+    "version": "5.5.1",
     "keywords": [
         "esp"
     ],
@@ -29,18 +29,16 @@
     "devDependencies": {
         "pak": ">=0.11.3"
     },
-    "pak": {
-        "export": [
-            {
-                "from": "js/*.js",
-                "to": "esp-angular-best/"
-            },
-            {
-                "from": "contents/**",
-                "to": "${TOP}",
-                "overwrite": false
-            }
-        ],
-        "manage": "esp.json"
-    }
+    "export": [
+        {
+            "from": "js/*.js",
+            "to": "esp-angular-best/"
+        },
+        {
+            "from": "contents/**",
+            "to": "${TOP}",
+            "overwrite": false
+        }
+    ],
+    "manage": "esp.json"
 }
