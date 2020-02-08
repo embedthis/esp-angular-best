@@ -1,7 +1,8 @@
 {
     "name": "esp-angular-best",
     "description": "ESP Best Practices Angular",
-    "version": "5.5.1",
+    "version": "6.0.0",
+    "warn": "This pak requires Angular 1 which is no longer supported.",
     "keywords": [
         "esp"
     ],
@@ -20,7 +21,7 @@
         "url": "git://github.com/embedthis/esp-angular-best.git"
     },
     "dependencies": {
-        "esp-angular-skeleton": "~5.5",
+        "esp-angular-skeleton": "~6.0",
         "html5shiv": "~3.7",
         "font-awesome": "~4.3",
         "more": "~0.0",
